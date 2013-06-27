@@ -1,6 +1,11 @@
 BlueRegister::Application.routes.draw do
   namespace :api do
     resources :registries
+    namespace :blue_button do
+      resources :apps, :only => :index
+      resources :registries, :only => :index
+      resources :providers, :only => :index
+    end
   end
 
   # The priority is based upon order of creation:

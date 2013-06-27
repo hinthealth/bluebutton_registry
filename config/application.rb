@@ -67,7 +67,7 @@ module BlueRegister
 
     # Configure generators
     config.generators do |g|
-      g.factory_girl(suffix: 'factory')
+      g.factory_girl({suffix: 'factory', dir: 'spec/factories'})
     end
 
   end
