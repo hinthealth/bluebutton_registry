@@ -6,4 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'factory_girl'
+
+# Apps
+FactoryGirl.create(:blood_pressure_grapher)
+
+# Providers
+FactoryGirl.create(:good_health_clinic)
+
+# Registries
 FactoryGirl.create(:registry)

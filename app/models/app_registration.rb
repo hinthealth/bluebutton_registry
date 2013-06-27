@@ -1,4 +1,4 @@
-class RegistrationParameters
+class AppRegistration
   include Mongoid::Document
   embedded_in :app
   field :client_name, type: String

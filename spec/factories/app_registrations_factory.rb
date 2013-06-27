@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :registration_parameters, :class => 'RegistrationParameters' do
-    factory :blood_pressure_grapher_registration_parameters do
+  factory :app_registration, :class => 'AppRegistration' do
+    factory :blood_pressure_grapher_registration do
       client_name "Blood Pressure Grapher"
       client_uri "https://bpgrapher.org"
       logo_uri "http://bpgrapher.org/images/logo.png"
