@@ -65,6 +65,8 @@ module BlueRegister
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # Don't initialize on precompile, causes an issue with mongoid + heroku + unicorn (see http://stackoverflow.com/questions/14775844/unicorn-triggers-mongoid-error-during-assets-precompile)
+    config.assets.initialize_on_precompile = false
     # Configure generators
     config.generators do |g|
       g.factory_girl({suffix: 'factory', dir: 'spec/factories'})
