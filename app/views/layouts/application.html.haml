@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    %title Blue Register - Blue Button+ Registry Service
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = render 'layouts/head'
+  %body
+    .container-narrow
+      = render 'layouts/header'
+      %hr/
+      .jumbotron
+        %h1 Join BlueButton+
+        %p.lead Register as a provider, application or registry for BlueButton. Join the next generation of healthcare.
+        .btn-group
+          %a.btn.btn-large.btn-success.dropdown-toggle{:href => "#TODO", "data-toggle" => "dropdown"}
+            Register
+            &nbsp;
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              %a{href: '#'} Provider
+            %li 
+              %a{href: '#'} Application
+            %li
+              %a{href: '#'} Registry
+      %hr/
+      .row-fluid.marketing
+        .span6
+          %h4 Get involved
+          %p You can be an advocate within your organization to implement BB+. <a href='#TODO'>Find out how</a>.
+          %h4 Is BB+ right for me?
+          %p If you're a healthcare provider, payer, or deal with PHI, then you're in the right place. MU stage 2 is coming and you need to be prepared. Implenting a BB+ CCDA portal is the easiest way to get V/D/T, and is a good bet to stay on top of MU stage 3. <a href='#TODO'>Learn more</a>
+          %h4 Subheading
+          %p Maecenas sed diam eget risus varius blandit sit amet non magna.
+        .span6
+          %h4 Looking for a BB+ registry?
+          %p You've come to the right place. Using our registry is free and easy, look at the <a href="#TODO"> developer guide</a> to get started.
+          %h4 Subheading
+          %p Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.
+          %h4 Subheading
+          %p Maecenas sed diam eget risus varius blandit sit amet non magna.
+      %hr/
+      = render partial: 'layouts/footer'
