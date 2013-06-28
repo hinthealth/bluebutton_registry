@@ -1,3 +1,8 @@
+:javascript
+  $(function(){
+    mixpanel.track('Home');
+    mixpanel.track_links('.jumbotron .btn', 'Signup Clicked');    
+  })
 %hr/
 .jumbotron
   %h1 Join BlueButton+
