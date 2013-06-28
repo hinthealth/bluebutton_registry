@@ -82,7 +82,6 @@ test:
 production:
   sessions:
     default:
-      database: blue_register_production
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
         skip_version_check: true
