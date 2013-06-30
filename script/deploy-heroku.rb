@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'heroku-headless'
+require 'heroku-api'
 def pull_request_number
   ENV['TRAVIS_PULL_REQUEST']
 end
@@ -23,7 +24,7 @@ def server_for_branch
   when 'master'
     'production'
   else
-    puts "No server configured for #{branch_name}..."
+    puts "No server configured for #{branch}..."
   end
 end
 
@@ -36,11 +37,21 @@ def derive_server_name(base_name)
 end
 puts "Determining deployability..."
 if deployable?
-  puts "Deployable! deploying to... #{derive_server_name('blue-register')}"
+  server_name = derive_server_name('blue-register')
+  puts "Deployable!"
+  heroku = Heroku::API.new
+  begin
+    heroku.get_app(server_name)
+  rescue Heroku::API::Errors::NotFound
+    puts "No app found with name #{server_name}, creating..."
+    heroku.post_app('name' => server_name)
+  end 
   HerokuHeadless.configure do | config |
     config.post_deploy_commands = ['rake db:migrate']
   end
-  HerokuHeadless::Deployer.deploy(derive_server_name('blue-register'))
+  puts "Deploying to... #{server_name}"
+  HerokuHeadless::Deployer.deploy(server_name)
 else
-  puts "Not deployable for #{ENV['TRAVIS_PULL_REQUEST']} #{ENV['TRAVIS_BRANCH']}..."
+  puts "Not deployable for ##{ENV['TRAVIS_PULL_REQUEST']}, branch=#{ENV['TRAVIS_BRANCH']}..."
 end
+
