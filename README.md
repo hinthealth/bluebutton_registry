@@ -8,7 +8,7 @@ in Ruby on Rails.
 Create your very own Blue Button+ Registry service!
 
 0. Requirements: 
-    * mongodb - http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/
+    * mongodb - [OS X Install guide](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/)
 1. Run ```bundle install```
 2. Run ```rake spec``` to ensure everything is setup
 3. (optional) Run ```rake db:seed``` to load your local environment with sample data 
@@ -19,20 +19,20 @@ Create your very own Blue Button+ Registry service!
 
 _How do I run the project's automated tests?_
 
-All testing is handled in rspec. To run the suite, simply run `rake spec`
+All testing is handled in [rspec 2](https://www.relishapp.com/rspec). To run the suite, simply run `rake`
 
 
-## Deploying - TBD
+## Deploying
 
-### _How to setup the deployment environment_
+### How to deploy to [blue-button.org](blue-button.org) via Heroku
 
-- _Required heroku addons, packages, or chef recipes._
-- _Required environment variables or credentials not included in git._
-- _Monitoring services and logging._
+1.  Getting setup (first time only)
 
-### _How to deploy_
+	```heroku git:remote -a blue-register-production```
 
-?????
+2.  Deploying to heroku
+
+	```git push heroku master```
 
 
 ## Contributing changes
@@ -43,7 +43,7 @@ All testing is handled in rspec. To run the suite, simply run `rake spec`
   * create a pull request!
   
 ## Credits
-Created by [Graham Melcher](https://github.com/melcher), contact me at melcher[at]gmail.com
+Created by [Graham Melcher](https://github.com/melcher), contact me at <graham@hlth.io>
 
 ## License
 This software made available under the [MIT License](http://opensource.org/licenses/MIT)
