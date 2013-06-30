@@ -1,3 +1,7 @@
+[![Build
+Status](https://travis-ci.org/hlth-labs/blue_register.png?branch=master)](https://travis-ci.org/hlth-labs/blue_register)
+
+
 # Blue Register
 
 Description: A basic implementation of a Blue Button+ Register service

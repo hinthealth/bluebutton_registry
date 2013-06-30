@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/env ruby
+
 require 'heroku-headless'
 def pull_request_number
   ENV['TRAVIS_PULL_REQUEST']
