@@ -21,6 +21,7 @@ _How do I run the project's automated tests?_
 
 All testing is handled in [rspec 2](https://www.relishapp.com/rspec). To run the suite, simply run `rake`
 
+When a new pull request is created, the tests will be automatically run on travis-ci
 
 ## Deploying
 
