@@ -27,6 +27,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'database_cleaner'
+  gem 'travis' # For CI/CD
+  gem 'heroku-headless'
 end
 
 # To use ActiveModel has_secure_password

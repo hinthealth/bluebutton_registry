@@ -1,2 +1,13 @@
+---
 services:
-  - mongodb
+- mongodb
+
+after_success: ./script/deploy-heroku.rb
+
+env:
+  global:
+    secure: ! 'lceN20HxRqiWZsGt5pmsvUeORxkqqzQ8U/pnaZunwvBJ2mDfRM8FKTN+0lyZ
+
+      rn1ALySW9CXpq4mcrIDX4wphcPCeLG0p4AoZL9Zid00h5KAOoFl0qDwn57Cp
+
+      WaniJWmjx1ooNyszEmUIId4VYiL7wR6OYFUigf324GzSLWMhEmg='
