@@ -11,6 +11,7 @@ gem 'mongoid', '~> 3.0.0'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'compass-rails'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -32,8 +33,10 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'travis' # For CI/CD
   gem 'heroku-headless'
-  gem 'mailcatcher' # Capture and display development emails
 end
+
+# Capture emails sent in development mode
+gem "letter_opener", :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
