@@ -37,4 +37,17 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+
+  field :roles, :type => Array, :default => []
+
+  ROLES = %w(admin super_admin)
+
+  def roles_enum
+    User::ROLES
+  end
+
+  def has_role?(role)
+    roles.include?(role.to_s)
+  end
+
 end

@@ -7,6 +7,15 @@ gem 'rails', '3.2.13'
 
 gem 'mongoid', '~> 3.0.0'
 
+# For user authentication
+gem 'devise'
+
+# For user authorization
+gem 'cancan'
+
+# Administrative scaffold
+gem 'rails_admin'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -20,12 +29,8 @@ group :assets do
   gem 'jquery-rails'
   gem 'uglifier', '>= 1.0.3'
 end
-
+# Haml is still required in production environments
 gem 'haml-rails'
-
-gem 'devise'
-
-gem 'rails_admin'
 
 group :development, :test do
   gem 'factory_girl_rails'
