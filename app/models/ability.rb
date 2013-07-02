@@ -7,7 +7,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.has_role?(:admin) || user.has_role?(:super_admin)
       can :manage, :all
-      cannot :manage, :user unless user.has_role?(:super_admin)
+      cannot :manage, User unless user.has_role?(:super_admin)
     end
     #
     # The first argument to `can` is the action you are giving the user 
