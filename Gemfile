@@ -22,6 +22,9 @@ end
 
 gem 'haml-rails'
 
+gem 'devise'
+
+gem 'rails_admin'
 
 group :development, :test do
   gem 'factory_girl_rails'
@@ -29,6 +32,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'travis' # For CI/CD
   gem 'heroku-headless'
+  gem 'mailcatcher' # Capture and display development emails
 end
 
 # To use ActiveModel has_secure_password
