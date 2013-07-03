@@ -7,10 +7,20 @@ gem 'rails', '3.2.13'
 
 gem 'mongoid', '~> 3.0.0'
 
+# For user authentication
+gem 'devise'
+
+# For user authorization
+gem 'cancan'
+
+# Administrative scaffold
+gem 'rails_admin'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem 'compass-rails'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'bootstrap-sass'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -19,9 +29,8 @@ group :assets do
   gem 'jquery-rails'
   gem 'uglifier', '>= 1.0.3'
 end
-
+# Haml is still required in production environments
 gem 'haml-rails'
-
 
 group :development, :test do
   gem 'factory_girl_rails'
@@ -30,6 +39,9 @@ group :development, :test do
   gem 'travis' # For CI/CD
   gem 'heroku-headless'
 end
+
+# Capture emails sent in development mode
+gem "letter_opener", :group => :development
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -4,4 +4,5 @@ class App
   field :name, type: String
 
   embeds_one :fixed_registration_parameters, class_name: "AppRegistration"
+  accepts_nested_attributes_for :fixed_registration_parameters
 end
