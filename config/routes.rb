@@ -16,6 +16,10 @@ BlueRegister::Application.routes.draw do
     end
   end
 
+  resources :apps
+  resources :registries
+  resources :providers
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

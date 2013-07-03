@@ -1,0 +1,14 @@
+= form_for :registry do |f|
+  %fieldset
+    %legend Sign up your registry
+    = f.label_for :name
+    = f.string :name
+    = f.label_for :url
+    = f.string :url
+    = f.label_for :jqks_uri
+    = f.string :jqks_uri
+    = f.label_for :trust_bundle_uri
+    = f.string :trust_bundle_uri
+    = f.label_for :oauth2
+    = f.string :oauth2
+    %button.btn{:type => "submit"} Submit
