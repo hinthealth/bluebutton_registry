@@ -28,4 +28,9 @@ BlueRegister::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Mail Catcher gem setup
+  config.action_mailer.delivery_method = :letter_opener
 end
+
+Rails.application.routes.default_url_options[:host] = 'localhost:3000'
