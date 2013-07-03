@@ -7,9 +7,10 @@
 .jumbotron
   %h1 Join BlueButton+
   %p.lead Register as a provider, application or registry for BlueButton. Join the next generation of healthcare.
+  %p #{pluralize Registry.count, 'registry'}, #{pluralize Provider.count, 'provider'} and #{pluralize App.count, 'application'} registered so far
   .btn-group
-    %a.btn.btn-large.btn-success.dropdown-toggle{:href => "#TODO", "data-toggle" => "dropdown"}
-      Register
+    %a.btn.btn-large.btn-success.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+      Register My
       &nbsp;
       %span.caret
     %ul.dropdown-menu
