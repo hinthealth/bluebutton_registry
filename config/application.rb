@@ -72,5 +72,8 @@ module BlueRegister
       g.factory_girl({suffix: 'factory', dir: 'spec/factories'})
     end
 
+
+    config.provided_by = 'hlth labs'
+    config.provided_by_url = 'http://hlthlabs.com/'
   end
 end

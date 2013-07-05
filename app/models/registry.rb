@@ -1,6 +1,7 @@
 class Registry
   include Mongoid::Document
   validate :valid_additional_attributes
+  validates :name, :url, :jwks_uri, :trust_bundle_uri, :oauth2, presence: true
   before_save :store_additional_attributes
   field :name, type: String
   field :url, type: String

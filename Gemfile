@@ -31,6 +31,8 @@ group :assets do
 end
 # Haml is still required in production environments
 gem 'haml-rails'
+# Form helper for rendering boostrap forms
+gem 'bootstrap_forms'
 
 group :development, :test do
   gem 'factory_girl_rails'

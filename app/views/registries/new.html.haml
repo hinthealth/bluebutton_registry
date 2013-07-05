@@ -1,28 +1,15 @@
-= form_for @registry, html: {class: 'form-horizontal'} do |f|
+= bootstrap_form_for @registry, html: {class: 'form-inline'} do |f|
   %fieldset
     %legend Sign up your registry
-    .control-group
-      = f.label :name, class: 'control-label'
-      .controls
-        = f.text_field :name
-        
-    = f.label :url
-    = f.text_field :url
-    = f.label :jwks_uri
-    = f.text_field :jwks_uri
-    = f.label :trust_bundle_uri
-    = f.text_field :trust_bundle_uri
-    = f.label :oauth2, name: 'OAuth2 Endpoints'
+    = f.text_field :name, required: true, placeholder: 'My BlueButton Plus Registry', label: 'Name *'
+
+    = f.url_field :url, required: true, append: '/.well-known/bb/registry.json', placeholder: 'http://registry.org', label: 'Root URL *'
+
+    = f.url_field :jwks_uri, required: true, placeholder: 'https://registry.org/public_key.jwks', class: 'span4', label: 'JSON Web Key (JWK) Set URL *'
+    = f.url_field :trust_bundle_uri, help_inline: "Only if you're acting as a BB+ Push Trust Bundle", class: 'span4', label: "Trust Bundle (.p7b, .p7c, or .p7m) URL", placeholder: 'https://registry.org/trust_bundle.p7m'
     = f.fields_for :oauth2 do |f|
-      = f.label :introspect_uri
-      = f.text_field :introspect_uri
-      = f.label :authorize_uri
-      = f.text_field :authorize_uri
-      = f.label :token_uri
-      = f.text_field :token_uri
-      = f.label :redirect_uri
-      = f.text_field :redirect_uri
-    = f.label :additional_attributes_json
-    = f.text_area :additional_attributes_json
-  %fieldset
-    %button.btn{:type => "submit"} Submit
+      = f.url_field :introspect_uri, placeholder: 'http://registry.org/oauth/introspect', label: 'OAuth2 Introspect URI (RECOMMENDED)', class: 'span4'
+      = f.url_field :authorize_uri, label: "OAuth2 Authorize URL", placeholder: 'http://registry.org/oauth/authorize', class: 'span4'
+      = f.url_field :token_uri, label: "OAuth2 Token URL", placeholder: 'http://registry.org/oauth/token', class: 'span4'
+    = f.text_area :additional_attributes_json, help_block: "The above JSON will be stored and returned as part of your Registry.json record.<b>YOU ARE RESPONSIBLE FOR ENSURING THE ABOVE JSON VALIDATES AGAINST SCHEMA.ORG</b>".html_safe, label: "Other Schema.org Compliant JSON"
+    = f.actions

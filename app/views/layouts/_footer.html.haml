@@ -1,2 +1,3 @@
 .footer
-  %p © Company 2013
+  %p © #{BlueRegister::Application.config.provided_by} #{Time.now.year}
+  %p #{Rails.application.class.parent_name.underscore.titleize} is an opensource project created and maintained by #{link_to BlueRegister::Application.config.provided_by, BlueRegister::Application.config.provided_by_url}
