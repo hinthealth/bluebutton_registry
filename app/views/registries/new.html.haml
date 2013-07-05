@@ -1,18 +1,28 @@
-= form_for @registry do |f|
+= form_for @registry, html: {class: 'form-horizontal'} do |f|
   %fieldset
     %legend Sign up your registry
-    = f.label :name
-    = f.text_field :name
+    .control-group
+      = f.label :name, class: 'control-label'
+      .controls
+        = f.text_field :name
+        
     = f.label :url
     = f.text_field :url
     = f.label :jwks_uri
     = f.text_field :jwks_uri
     = f.label :trust_bundle_uri
     = f.text_field :trust_bundle_uri
-    = f.label :oauth2
+    = f.label :oauth2, name: 'OAuth2 Endpoints'
     = f.fields_for :oauth2 do |f|
-      = f.label :value1
-      = f.text_field :value1
-      = f.label :value2
-      = f.text_field :value2
+      = f.label :introspect_uri
+      = f.text_field :introspect_uri
+      = f.label :authorize_uri
+      = f.text_field :authorize_uri
+      = f.label :token_uri
+      = f.text_field :token_uri
+      = f.label :redirect_uri
+      = f.text_field :redirect_uri
+    = f.label :additional_attributes_json
+    = f.text_area :additional_attributes_json
+  %fieldset
     %button.btn{:type => "submit"} Submit
