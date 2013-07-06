@@ -16,6 +16,14 @@ BlueRegister::Application.routes.draw do
     end
   end
 
+  resources :apps
+  resources :registries
+  resources :providers
+
+  [:registry, :app, :provider].each do |resource|
+    match "/.well-known/bb/#{resource}" => "api/blue_button/#{resource.to_s.pluralize}#index", :as => "blue_button_#{resource}"
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

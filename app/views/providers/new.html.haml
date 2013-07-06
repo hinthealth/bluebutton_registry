@@ -1,0 +1,24 @@
+= bootstrap_form_for @provider, html: {class: 'form-inline'} do |f|
+  %fieldset
+    %legend Become a provider at <b>#{BlueRegister::Application.config.name}</b>
+    = f.text_field :name, required: true, placeholder: 'Good Health Clinic', label: 'Name *'
+
+    = f.url_field :url, required: true, placeholder: 'http://goodhealthclinic.org', label: 'Primary URL *',class: 'span4'
+
+    = f.url_field :patient_signin, required: true, placeholder: 'http://portal.goodhealthclinic.org/sign-in', class: 'span4', label: 'Patient Sign-In Page'
+  .well.well-small
+    %h4 OAuth2 Endpoints
+    = f.fields_for :oauth2, @provider.oauth2 || ProviderAuthentication.new do |f|
+      = f.url_field :registration_uri, placeholder: 'http://goodhealthclinic.org/oauth/register', label: 'OAuth2 Registration URI', class: 'span4'
+      = f.url_field :authorize_uri, label: "OAuth2 Authorize URL", placeholder: 'http://goodhealthclinic.org/oauth/authorize', class: 'span4'
+      = f.url_field :token_uri, label: "OAuth2 Token URL", placeholder: 'http://goodhealthclinic.org/oauth/token', class: 'span4'
+      = f.url_field :introspect_uri, placeholder: 'http://goodhealthclinic.org/oauth/introspect', label: 'OAuth2 Introspect URI (RECOMMENDED)', class: 'span4'
+  .well.well-small
+    %h4 BlueButton+ Api Endpoints
+    = f.fields_for :bb_api, @provider.bb_api || ProviderBlueButtonApi.new do |f|
+      = f.url_field :summary, placeholder: 'http://api.goodhealthclinic.org/patient/documents/summary', label: 'BlueButton+ Api Summary URL', class: 'span4'
+      = f.url_field :search, placeholder: 'http://api.goodhealthclinic.org/patient/documents/search', label: 'BlueButton+ Api Search URL', class: 'span4'
+  .well.well-small
+    %h4 Custom JSON
+    = f.text_area :dynamic_attributes_json, help_block: "<b>YOU ARE RESPONSIBLE FOR ENSURING THE ABOVE JSON VALIDATES AGAINST SCHEMA.ORG</b>".html_safe, label: "Include any additional schema.org properties", placeholder: '{"description": "Serving your health needs since 1999"}'
+  = f.actions
