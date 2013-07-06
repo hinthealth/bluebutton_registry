@@ -23,7 +23,7 @@ describe Api::RegistriesController do
   # This should return the minimal set of attributes required to create a valid
   # Registry. As you add validations to Registry, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "name" => "MyString" } }
+  let(:valid_attributes) { { "name" => "MyString", "url" => "http://registry.org", "jwks_uri" => "https://registry.org/public_key.jwks", "trust_bundle_uri" => "https://registry.org/trust_bundle.p7m", "oauth2" => { "introspect_uri" => "http://registry.org/oauth/introspect"} } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
