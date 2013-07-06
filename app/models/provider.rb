@@ -1,5 +1,7 @@
 class Provider
   include Mongoid::Document
+  include DynamicAttributes::Schema
+  validates :name, :url, presence: true
   field :name, type: String
   field :url, type: String
   field :patient_signin, type: String

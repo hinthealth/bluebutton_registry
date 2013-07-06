@@ -73,6 +73,8 @@ module BlueRegister
     end
 
 
+    config.name = 'registry.bluebutton.io'
+
     config.provided_by = 'hlth labs'
     config.provided_by_url = 'http://hlthlabs.com/'
   end

@@ -1,0 +1,26 @@
+= bootstrap_form_for @app, html: {class: 'form-inline'} do |f|
+  %fieldset
+    %legend Register your application at <b>#{BlueRegister::Application.config.name}</b>
+    = f.text_field :name, required: true, placeholder: 'Blood Pressure Grapher', label: 'Name *'
+
+    = f.url_field :url, required: true, placeholder: 'https://bpgrapher.org', label: 'Root URL *'
+
+  .well.well-small
+    %h4 Registration Parameters
+    = f.fields_for :fixed_registration_parameters, @app.fixed_registration_parameters || AppRegistration.new do |f|
+      = f.text_field :client_name, placeholder: 'Blood Pressure Grapher', help_inline: 'This field cannot be changed'
+      = f.url_field :client_uri, placeholder: 'https://bpgrapher.org', label: 'Application URL', help_inline: 'This field cannot be changed'
+      = f.url_field :logo_uri, placeholder: 'http://bpgrapher.org/images/logo.png', label: 'Logo URL', class: 'span4'
+      = f.url_field :tos_uri, placeholder: 'https://bpgrapher.org/tos', label: 'Terms of Service URL', class: 'span4'
+      = f.text_area :redirect_uris_string, placeholder: "https://bpgrapher.org/after-auth \n https://bpgrapher.org/post-auth", help_inline: "Add one per line", label: "Redirect URI's", class: 'span4'
+      = f.select :response_types, ['','code', 'token', ['code and token', 'code, token']], label: "Response Types", help_inline: "Confidential clients must use 'code'"
+      = f.text_field :token_endpoint_auth_method, placeholder: 'none', help_inline: "e.g. none or client_secret_basic"
+      = f.select :grant_types_string, ['', 'authorization_code', 'implicit', ['authorization_code and implicit', 'authorization_code, implicit']], {help_inline: "Confidential clients must use authorization_code"}
+      = f.select :scope, ['', 'search', 'summary', ['search and summary', 'search summary']], help_inline: 'Scope for requesting access tokens'
+      = f.text_area :contacts_string, placeholder: "plot-master@bpgrapher.org", label: "Contacts", help_inline: "Add one contact per line"
+
+
+  .well.well-small
+    %h4 Custom JSON
+    = f.text_area :dynamic_attributes_json, help_block: "<b>YOU ARE RESPONSIBLE FOR ENSURING THE ABOVE JSON VALIDATES AGAINST SCHEMA.ORG</b>".html_safe, label: "Include any additional schema.org properties"
+    = f.actions

@@ -26,7 +26,7 @@ describe Registry do
     subject { @registry }
     context "with valid schema.org json" do
       before do
-        @additional_attributes_json = <<-JSON
+        @dynamic_attributes_json = <<-JSON
         {
           "location": {
             "geo": {
@@ -36,16 +36,16 @@ describe Registry do
           }
         }
         JSON
-        @registry.additional_attributes_json = @additional_attributes_json
+        @registry.dynamic_attributes_json = @dynamic_attributes_json
       end
       it { should be_valid }
-      its(:additional_attributes_json) { should == canonicalize_json(@additional_attributes_json) }
+      its(:dynamic_attributes_json) { should == canonicalize_json(@dynamic_attributes_json) }
       describe "on save" do
         before do
           @registry.save
           @registry.reload
         end
-        its(:additional_attributes_json) { should == canonicalize_json(@additional_attributes_json) }
+        its(:dynamic_attributes_json) { should == canonicalize_json(@dynamic_attributes_json) }
         it "should have stored any keys as attributes" do
           @registry['location'].should == {'geo' => {'latitude' => 42.3591, 'longitude' => -71.0934}}
         end
@@ -53,7 +53,7 @@ describe Registry do
     end
     pending "with invalid schema.org json" do
       before do
-        @additional_attributes_json = <<-JSON
+        @dynamic_attributes_json = <<-JSON
         {
           "phone_number": {
             "office": {
@@ -62,16 +62,16 @@ describe Registry do
           }
         }
         JSON
-        @registry.additional_attributes_json= @additional_attributes_json
+        @registry.dynamic_attributes_json= @dynamic_attributes_json
       end
       it { should_not be_valid }
-      its(:additional_attributes_json) { should == canonicalize_json(@additional_attributes_json) }
+      its(:dynamic_attributes_json) { should == canonicalize_json(@dynamic_attributes_json) }
       describe "on save" do
         before do
           @registry.save.should_be_false
           @registry.reload
         end
-        its(:additional_attributes_json) { should == nil }
+        its(:dynamic_attributes_json) { should == nil }
       end
     end
   end
