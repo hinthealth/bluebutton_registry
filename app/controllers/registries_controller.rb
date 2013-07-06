@@ -7,7 +7,7 @@ class RegistriesController < ApplicationController
   def create
     @registry = Registry.new(params[:registry])
     if @registry.save
-      flash[:message] = "Success! Please allow 24 hours for us to approve"
+      flash[:notice] = "Success! Your registry is now available in the registry.json"
       redirect_to root_path
     else
       render :new

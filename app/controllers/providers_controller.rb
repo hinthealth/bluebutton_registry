@@ -6,7 +6,7 @@ class ProvidersController < ApplicationController
   def create
     @provider = Provider.new(params[:provider])
     if @provider.save
-      flash[:message] = "Success! Please allow 24 hours for us to approve"
+      flash[:notice] = "Success! Your provider is now listed in providers.json"
       redirect_to root_path
     else
       render :new

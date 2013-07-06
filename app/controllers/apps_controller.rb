@@ -6,7 +6,7 @@ class AppsController < ApplicationController
   def create
     @app = App.new(params[:app])
     if @app.save
-      flash[:message] = "Success! Please allow 24 hours for us to approve"
+      flash[:notice] = "Success! Your app is now listed in apps.json"
       redirect_to root_path
     else
       render :new
