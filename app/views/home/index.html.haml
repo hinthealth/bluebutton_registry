@@ -7,18 +7,21 @@
 .jumbotron
   %h1 Join BlueButton+
   %p.lead Register as a provider, application or registry for BlueButton. Join the next generation of healthcare.
+  %p
+    != [:registry, :provider, :app].collect{|r| link_to(pluralize(r.to_s.classify.constantize.count, r.to_s), send("blue_button_#{r}_path", format: :json)) }.to_sentence
+    registered so far
   .btn-group
-    %a.btn.btn-large.btn-success.dropdown-toggle{:href => "#TODO", "data-toggle" => "dropdown"}
-      Register
+    %a.btn.btn-large.btn-success.dropdown-toggle{:href => "#", "data-toggle" => "dropdown"}
+      Register My
       &nbsp;
       %span.caret
     %ul.dropdown-menu
       %li
-        %a{href: '#'} Provider
+        %a{href: new_provider_path } Provider
       %li 
-        %a{href: '#'} Application
+        %a{href: new_app_path } Application
       %li
-        %a{href: '#'} Registry
+        %a{href: new_registry_path } Registry
 %hr/
 .row-fluid.marketing
   .span6

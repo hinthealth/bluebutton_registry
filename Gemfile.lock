@@ -34,6 +34,7 @@ GEM
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
+    bootstrap_forms (4.0.0)
     builder (3.0.4)
     cancan (1.6.10)
     chunky_png (1.2.8)
@@ -239,6 +240,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  bootstrap_forms
   cancan
   coffee-rails (~> 3.2.1)
   compass-rails

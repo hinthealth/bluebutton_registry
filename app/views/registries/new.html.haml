@@ -1,0 +1,19 @@
+= bootstrap_form_for @registry, html: {class: 'form-inline'} do |f|
+  %fieldset
+    %legend Make you registry available at <b>#{BlueRegister::Application.config.name}</b>
+    = f.text_field :name, required: true, placeholder: 'My BlueButton Plus Registry', label: 'Name *'
+
+    = f.url_field :url, required: true, append: '/.well-known/bb/registry.json', placeholder: 'http://registry.org', label: 'Root URL *'
+
+    = f.url_field :jwks_uri, required: true, placeholder: 'https://registry.org/public_key.jwks', class: 'span4', label: 'JSON Web Key (JWK) Set URL *'
+    = f.url_field :trust_bundle_uri, help_inline: "Only if you're acting as a BB+ Push Trust Bundle", class: 'span4', label: "Trust Bundle (.p7b, .p7c, or .p7m) URL", placeholder: 'https://registry.org/trust_bundle.p7m'
+  .well.well-small
+    %h4 OAuth2 Endpoints
+    = f.fields_for :oauth2 do |f|
+      = f.url_field :introspect_uri, placeholder: 'http://registry.org/oauth/introspect', label: 'OAuth2 Introspect URI (RECOMMENDED)', class: 'span4'
+      = f.url_field :authorize_uri, label: "OAuth2 Authorize URL", placeholder: 'http://registry.org/oauth/authorize', class: 'span4'
+      = f.url_field :token_uri, label: "OAuth2 Token URL", placeholder: 'http://registry.org/oauth/token', class: 'span4'
+  .well.well-small
+    %h4 Custom JSON
+    = f.text_area :dynamic_attributes_json, help_block: "<b>YOU ARE RESPONSIBLE FOR ENSURING THE ABOVE JSON VALIDATES AGAINST SCHEMA.ORG</b>".html_safe, label: "Include any additional schema.org properties"
+    = f.actions
