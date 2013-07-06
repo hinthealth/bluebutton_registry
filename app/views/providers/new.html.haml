@@ -9,10 +9,10 @@
   .well.well-small
     %h4 OAuth2 Endpoints
     = f.fields_for :oauth2, @provider.oauth2 || ProviderAuthentication.new do |f|
-      = f.url_field :registration_uri, placeholder: 'http://registry.org/oauth/register', label: 'OAuth2 Registration URI', class: 'span4'
-      = f.url_field :authorize_uri, label: "OAuth2 Authorize URL", placeholder: 'http://registry.org/oauth/authorize', class: 'span4'
-      = f.url_field :token_uri, label: "OAuth2 Token URL", placeholder: 'http://registry.org/oauth/token', class: 'span4'
-      = f.url_field :introspect_uri, placeholder: 'http://registry.org/oauth/introspect', label: 'OAuth2 Introspect URI (RECOMMENDED)', class: 'span4'
+      = f.url_field :registration_uri, placeholder: 'http://goodhealthclinic.org/oauth/register', label: 'OAuth2 Registration URI', class: 'span4'
+      = f.url_field :authorize_uri, label: "OAuth2 Authorize URL", placeholder: 'http://goodhealthclinic.org/oauth/authorize', class: 'span4'
+      = f.url_field :token_uri, label: "OAuth2 Token URL", placeholder: 'http://goodhealthclinic.org/oauth/token', class: 'span4'
+      = f.url_field :introspect_uri, placeholder: 'http://goodhealthclinic.org/oauth/introspect', label: 'OAuth2 Introspect URI (RECOMMENDED)', class: 'span4'
   .well.well-small
     %h4 BlueButton+ Api Endpoints
     = f.fields_for :bb_api, @provider.bb_api || ProviderBlueButtonApi.new do |f|

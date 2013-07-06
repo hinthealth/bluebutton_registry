@@ -5,7 +5,7 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(params[:app])
-    if @app.create
+    if @app.save
       flash[:message] = "Success! Please allow 24 hours for us to approve"
       redirect_to root_path
     else
