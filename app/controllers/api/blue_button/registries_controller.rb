@@ -1,9 +1,9 @@
 class Api::BlueButton::RegistriesController < ApiController
-  def index
-    @registries = Registry.all
+  def show
+    @registry = Registry.for(request.host_with_port)
 
     respond_to do |format|
-      format.json { render json: @registries }
+      format.json { render json: Api::BlueButton::RegistryPresenter.new(@registry).as_json }
     end
   end
 end
