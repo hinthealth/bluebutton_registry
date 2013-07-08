@@ -3,24 +3,25 @@ BlueRegister::Application.routes.draw do
 
   devise_for :users
 
-  
+
 
   get "home/index"
 
   namespace :api do
-    resources :registries
     namespace :blue_button do
       resources :apps, :only => :index
-      resources :registries, :only => :index
+      resource :registry, :only => :show
       resources :providers, :only => :index
     end
   end
 
   resources :apps
-  resources :registries
+  resources :registry
   resources :providers
 
-  [:registry, :app, :provider].each do |resource|
+  match "/.well-known/bb/registry" => "api/blue_button/registries#show", :as => "blue_button_registry"
+
+  [:app, :provider].each do |resource|
     match "/.well-known/bb/#{resource}" => "api/blue_button/#{resource.to_s.pluralize}#index", :as => "blue_button_#{resource}"
   end
 

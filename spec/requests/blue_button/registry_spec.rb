@@ -1,30 +1,28 @@
 require 'spec_helper'
 
-describe "Providers" do
-  describe "GET /api/blue_button/providers" do
+describe "Registry" do
+  describe "GET /api/blue_button/registry" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get api_blue_button_providers_path, format: :json
+      get api_blue_button_registry_path, format: :json
       response.status.should be(200)
     end
 
-    context "with a sample provider" do
+    context "with a sample registry" do
       before do
-        @provider = FactoryGirl.create(:good_health_clinic)
-        get api_blue_button_providers_path, format: :json
+        get api_blue_button_registry_path, format: :json
       end
-      describe "should return an array with that registry" do
+
+      describe "should return a single registry object" do
         subject { JSON.parse(response.body) }
-        its(:length){ should == 1 }
+        it { subject.should be_is_a(Hash) }
       end
-      describe "the provider JSON" do
-        subject { JSON.parse(response.body)[0] }
-        it { subject['name'].should == "Good Health Clinic" }
-        it { subject['description'].should == "Serving your health needs since 1999"}
-        it { subject['url'].should == "http://goodhealthclinic.org" }
-        it { subject['patient_signin'].should == "http://portal.goodhealthclinic.org" }
-        it { subject['oauth2'].should == {"authorize_uri"=>"http://portal.goodhealthclinic.org/authorize", "registration_uri"=>"http://portal.goodhealthclinic.org/register", "token_uri"=>"http://portal.goodhealthclinic.org/token", "introspect_uri" => nil}  }
-        it { subject['bb_api'].should == {"search"=>"http://api.goodhealthclinic.org/patient/documents/search", "summary"=>"http://api.goodhealthclinic.org/patient/documents/summary"} }
+      describe "the registry JSON" do
+        subject { JSON.parse(response.body) }
+        it { subject['name'].should == "BB+ Registry on Rails" }
+        it { subject['url'].should == "http://www.example.com" }
+        it { subject['jwks_uri'].should == "http://www.example.com/public_key.jwks" }
+        it { subject['oauth2'].should == {"introspect" => nil} }
         its(:keys){ should_not include('_id') }
 
         its(:keys){ should include('@context') }
@@ -32,8 +30,8 @@ describe "Providers" do
         context "@context object" do
           before do
             json_ld_context = <<-JSON
-            {
-              "@context": {
+              {
+                "@context": {
                 "@vocab": "http://schema.org/",
                 "oauth2": "http://siframework.org/ABBI/oauth2_endpoints",
                 "bb_api": "http://siframework.org/ABBI/bbplus_data_endpoints",
@@ -55,10 +53,10 @@ describe "Providers" do
             }
             JSON
 
-            @provider_boilerplate_context = JSON.parse(json_ld_context)
+            @registry_boilerplate_context = JSON.parse(json_ld_context)
           end
-          subject{ JSON.parse(response.body)[0]['@context'] }
-          it{ should == @provider_boilerplate_context['@context'] }
+          subject{ JSON.parse(response.body)['@context'] }
+          it{ should == @registry_boilerplate_context['@context'] }
         end
       end
     end

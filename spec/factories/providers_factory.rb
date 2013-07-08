@@ -14,6 +14,17 @@ FactoryGirl.define do
       patient_signin "http://portal.goodhealthclinic.org"
       oauth2 { FactoryGirl.build(:good_health_clinic_authentication) }
       bb_api { FactoryGirl.build(:good_health_clinic_blue_button_api) }
+      dynamic_attributes_json { <<-JSON
+        {
+          "location": {
+            "geo": {
+              "latitude": 42.3591,
+              "longitude": -71.0934
+            }
+          }
+        }
+      JSON
+      }
     end
   end
 end
