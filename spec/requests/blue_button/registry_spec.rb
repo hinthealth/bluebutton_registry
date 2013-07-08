@@ -1,38 +1,28 @@
 require 'spec_helper'
 
-describe "Registries" do
-  describe "GET /api/blue_button/registries" do
+describe "Registry" do
+  describe "GET /api/blue_button/registry" do
     it "works! (now write some real specs)" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get api_blue_button_registries_path, format: :json
+      get api_blue_button_registry_path, format: :json
       response.status.should be(200)
     end
 
     context "with a sample registry" do
       before do
-        default_attributes = {
-          name: "The BB+ Registry Foundation",
-          url: "http://registry.org/",
-          jwks_uri: "https://registry.org/public_key.jwks",
-          oauth2: {
-            introspect: "https://registry.org/oauth/introspect"
-          }
-        }
-        @registry = FactoryGirl.create(:registry, default_attributes)
-        get api_blue_button_registries_path, format: :json
+        get api_blue_button_registry_path, format: :json
       end
 
-      describe "should return an array with that registry" do
+      describe "should return a single registry object" do
         subject { JSON.parse(response.body) }
-        its(:length){ should == 1 }
+        it { subject.should be_is_a(Hash) }
       end
       describe "the registry JSON" do
-        subject { JSON.parse(response.body)[0] }
-        it { subject['name'].should == "The BB+ Registry Foundation" }
-        it { subject['url'].should == "http://registry.org/" }
-        it { subject['jwks_uri'].should == "https://registry.org/public_key.jwks" }
-        it { subject['oauth2'].should == {"introspect" => "https://registry.org/oauth/introspect"} }
-        it { subject['location'].should == {"geo" => { "latitude" => 42.3591, "longitude" => -71.0934 }} }
+        subject { JSON.parse(response.body) }
+        it { subject['name'].should == "BB+ Registry on Rails" }
+        it { subject['url'].should == "http://www.example.com" }
+        it { subject['jwks_uri'].should == "http://www.example.com/public_key.jwks" }
+        it { subject['oauth2'].should == {"introspect" => nil} }
         its(:keys){ should_not include('_id') }
 
         its(:keys){ should include('@context') }
@@ -65,7 +55,7 @@ describe "Registries" do
 
             @registry_boilerplate_context = JSON.parse(json_ld_context)
           end
-          subject{ JSON.parse(response.body)[0]['@context'] }
+          subject{ JSON.parse(response.body)['@context'] }
           it{ should == @registry_boilerplate_context['@context'] }
         end
       end
