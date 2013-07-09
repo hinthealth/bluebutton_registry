@@ -12,6 +12,7 @@ BlueRegister::Application.routes.draw do
       resources :apps, :only => :index
       resource :registry, :only => :show
       resources :providers, :only => :index
+      resources :json_web_keys, :only => :index
     end
   end
 
@@ -19,6 +20,7 @@ BlueRegister::Application.routes.draw do
   resources :registry
   resources :providers
 
+  match "/generated/public_jwks" => "api/blue_button/json_web_keys#index", :as => "blue_button_public_keys"
   match "/.well-known/bb/registry" => "api/blue_button/registries#show", :as => "blue_button_registry"
 
   [:app, :provider].each do |resource|

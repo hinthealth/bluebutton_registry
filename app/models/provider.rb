@@ -1,5 +1,6 @@
 class Provider
   include Mongoid::Document
+  include Mongoid::Timestamps
   include DynamicAttributes::Schema
   validates :name, :url, presence: true
   field :name, type: String

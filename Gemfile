@@ -16,6 +16,9 @@ gem 'cancan'
 # Administrative scaffold
 gem 'rails_admin'
 
+# JSON Web Signature, Web Encryption, Web Key
+gem 'json-jwt'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
