@@ -21,7 +21,7 @@ describe "Registry" do
         subject { JSON.parse(response.body) }
         it { subject['name'].should == "BB+ Registry on Rails" }
         it { subject['url'].should == "http://www.example.com" }
-        it { subject['jwks_uri'].should == "http://www.example.com/public_key.jwks" }
+        it { subject['jwks_uri'].should == "http://www.example.com/generated/public_jwks.json" }
         it { subject['oauth2'].should == {"introspect" => nil} }
         its(:keys){ should_not include('_id') }
 
