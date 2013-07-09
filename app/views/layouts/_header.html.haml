@@ -11,5 +11,7 @@
     - else
       %li= link_to "Sign in", new_user_session_path
       %li= link_to "Sign up", new_user_registration_path
+  .pull-left.logo
+    %img{src: 'images/bluebutton.jpg'}
   %h3.muted #{link_to BlueRegister::Application.config.name, root_path}
 = render 'layouts/messages'
