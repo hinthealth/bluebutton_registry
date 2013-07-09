@@ -12,4 +12,16 @@ class AppsController < ApplicationController
       render :new
     end
   end
+
+  protected
+
+    def claim(app)
+    {
+      iss: root_path,
+      sub: app.url,
+      iat: app.updated_at,
+      kid:
+    }
+  end
+
 end
