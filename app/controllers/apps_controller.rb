@@ -5,7 +5,8 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(params[:app])
-    if @app.save
+    if @app.save && @app.generate_token!(root_path)
+      generate_token!(@app)
       flash[:notice] = "Success! Your app is now listed in apps.json"
       redirect_to root_path
     else
@@ -13,15 +14,5 @@ class AppsController < ApplicationController
     end
   end
 
-  protected
-
-    def claim(app)
-    {
-      iss: root_path,
-      sub: app.url,
-      iat: app.updated_at,
-      kid:
-    }
-  end
 
 end
