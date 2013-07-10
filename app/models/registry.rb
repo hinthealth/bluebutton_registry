@@ -14,7 +14,7 @@ class Registry
       name: "BB+ Registry on Rails",
       url: 'http://' + host,
       trust_bundle_uri: nil,
-      jwks_uri:  'http://' + host + "/public_key.jwks",
+      jwks_uri:  'http://' + host + "/generated/public_jwks.json",
       oauth2: { introspect: nil }
     })
   end

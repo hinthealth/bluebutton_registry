@@ -32,6 +32,7 @@ GEM
     arel (3.0.2)
     backports (3.3.3)
     bcrypt-ruby (3.0.1)
+    bindata (1.5.0)
     bootstrap-sass (2.3.2.0)
       sass (~> 3.2)
     bootstrap_forms (4.0.0)
@@ -105,6 +106,11 @@ GEM
       jquery-rails
       railties (>= 3.1.0)
     json (1.8.0)
+    json-jwt (0.5.5)
+      activesupport (< 4)
+      bindata
+      multi_json (>= 1.3)
+      url_safe_base64
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -232,6 +238,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    url_safe_base64 (0.2.1)
     warden (1.2.1)
       rack (>= 1.0)
 
@@ -250,6 +257,7 @@ DEPENDENCIES
   haml-rails
   heroku-headless
   jquery-rails
+  json-jwt
   letter_opener
   mongoid (~> 3.0.0)
   rails (= 3.2.13)
