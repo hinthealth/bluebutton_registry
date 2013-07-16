@@ -1,7 +1,7 @@
 require 'presenter_base'
 class Api::BlueButton::AppPresenter < Presenter::Base
   def except_attributes
-    ['_id']
+    ['_id', 'registration_jwt']
   end
   def context
     {"@context"=>
