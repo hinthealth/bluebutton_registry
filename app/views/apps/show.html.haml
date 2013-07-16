@@ -1,0 +1,34 @@
+%h3 Registration successful!
+%p
+  Congratulations, you've successfully registered your application.
+  %dl
+    %dt Application Name:
+    %dd= @app.name
+    %dt Application URL:
+    %dd= @app.url
+    %dt
+      Signed JWT:
+      %span.help-inline PRIVATE!
+    %dd
+      %pre
+        != @app.registration_jwt
+      .alert
+        %h4 Keep it safe!
+        Exposure of the JWT of a trusted application is considered a major
+        security breach, and will result in the invalidation of this registration.
+
+%h4 Fixed Parameters
+%p
+  The parameters fixed for your application are:
+  %ul.unstyled
+    - @app.fixed_registration_parameters.attributes.except("_id").each do |key, value|
+      %li <strong>#{key}:</strong> #{value.inspect}
+
+%h4 FAQ
+%p
+  Your application is registered, but what if you need to change this information later on?
+  %br
+  %em We're working on it!
+  %br
+  Unfortunately, there's currently no way to change this information. Instead, you'll have to
+  %a{href: root_path } register another application
