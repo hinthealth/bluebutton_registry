@@ -1,13 +1,11 @@
 ---
 services:
 - mongodb
-
 after_success: ./script/deploy-heroku.rb
-
 env:
   global:
-    secure: ! 'lceN20HxRqiWZsGt5pmsvUeORxkqqzQ8U/pnaZunwvBJ2mDfRM8FKTN+0lyZ
+  - secure: ! 'JdgPZMRUXWwRY5mSUKOqGv8xpz51ImB1hhxVkdcb9Sf4XjJ91Lz2HNpva8Go
 
-      rn1ALySW9CXpq4mcrIDX4wphcPCeLG0p4AoZL9Zid00h5KAOoFl0qDwn57Cp
+      vZfaTXuCvrs8GP0Yfvh3NKgm0GI3zsuKbKbtfAAwKfBS1kHaJZ28iOWXlsGD
 
-      WaniJWmjx1ooNyszEmUIId4VYiL7wR6OYFUigf324GzSLWMhEmg='
+      KcG/qgOzs5Z7iJfy2cnCu3x6OQMTduu1PuThcLhL5D/mjKi6fj8='

@@ -22,6 +22,7 @@ describe "Apps" do
         it { subject['name'].should == "Blood Pressure Grapher" }
         it { subject['url'].should == "https://bpgrapher.org" }
         its(:keys){ should_not include('_id') }
+        its(:keys){ should_not include('registration_jwt') }
         its(:keys){ should include('@context') }
         its(:keys){ should include('fixed_registration_parameters') }
       end
