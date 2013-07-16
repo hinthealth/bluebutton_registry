@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:healthio/heroku-headless.git
+  revision: 7e3dcc7c6132c7868429d140ed633695cf18e2ce
+  specs:
+    heroku-headless (0.2.1)
+      heroku-api
+      rendezvous
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,7 +69,7 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
-    excon (0.25.0)
+    excon (0.25.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -90,11 +98,8 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
-    heroku-api (0.3.13)
-      excon (~> 0.25.0)
-    heroku-headless (0.2.1)
-      heroku-api
-      rendezvous
+    heroku-api (0.3.14)
+      excon (~> 0.25.1)
     highline (1.6.19)
     hike (1.2.3)
     i18n (0.6.1)
@@ -259,7 +264,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   haml-rails
-  heroku-headless
+  heroku-headless!
   jquery-rails
   json-jwt
   letter_opener
