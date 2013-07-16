@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+APP_NAME_BASE = 'blue-register'
 require 'heroku-headless'
 require 'heroku-api'
 def pull_request_number
@@ -35,9 +35,15 @@ def derive_server_name(base_name)
     "#{base_name}-#{server_for_branch}"
   end
 end
+
+def list_apps(heroku)
+  @apps = heroku.get_apps
+  @apps.body.select{|a| a['name'].starts_with?(APP_NAME_BASE) }
+end
+
 puts "Determining deployability..."
 if deployable?
-  server_name = derive_server_name('blue-register')
+  server_name = derive_server_name(APP_NAME_BASE)
   puts "Deployable!"
   heroku = Heroku::API.new
   begin
@@ -45,9 +51,10 @@ if deployable?
   rescue Heroku::API::Errors::NotFound
     puts "No app found with name #{server_name}, creating..."
     heroku.post_app('name' => server_name)
-  end 
+  end
   HerokuHeadless.configure do | config |
     config.post_deploy_commands = ['rake db:migrate']
+    config.force_push = true
   end
   puts "Deploying to... #{server_name}"
   HerokuHeadless::Deployer.deploy(server_name)
