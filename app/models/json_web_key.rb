@@ -41,6 +41,7 @@ class JsonWebKey
     if !defined?(@key) || @key.blank?
       @key = load_key
     end
+    @key
   end
 
   def key=(new_key)

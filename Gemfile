@@ -43,6 +43,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'travis' # For CI/CD
   gem 'heroku-headless'
+  gem 'spork-rails'
 end
 
 # Capture emails sent in development mode

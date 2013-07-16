@@ -12,22 +12,23 @@ class App
 
   accepts_nested_attributes_for :fixed_registration_parameters
 
-
-  def generate_token!(site)
+  def self.generate_token(site, url, updated_at)
     jwk = JsonWebKey.current
-    claim = claim(site, jwk)
-    self.registration_jwt = JSON::JWT.new(claim).sign(jwk.key, jwk.alg)
-    self.save
-    AppMailer.registered(self).deliver
-    return true
-  end
-  def claim(site, jwk)
-    {
+    claim = {
       iss: site,
       sub: url,
-      iat: updated_at,
-      kid: jwk.kid
+      kid: jwk.kid,
+      iat: updated_at
     }
+    JSON::JWT.new(claim).sign(jwk.key, jwk.alg)
+  end
+
+  def generate_token!(site)
+    self.registration_jwt = self.class.generate_token(site, self.url, self.updated_at)
+    self.save
+    return true
+  rescue Exception => err
+    puts "Unable to generate token: #{err} --------------- \n #{err.backtrace.join("\n")}\n ---------------"
   end
 
 end

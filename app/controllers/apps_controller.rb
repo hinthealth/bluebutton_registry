@@ -5,8 +5,8 @@ class AppsController < ApplicationController
 
   def create
     @app = App.new(params[:app])
-    if @app.save && @app.generate_token!(root_path)
-      generate_token!(@app)
+    if @app.save && @app.generate_token!(root_url)
+      AppMailer.registered(@app).deliver
       flash[:notice] = "Success! Your app is now listed in apps.json"
       redirect_to root_path
     else
