@@ -43,7 +43,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'travis' # For CI/CD
-  gem 'heroku-headless', git: 'git@github.com:healthio/heroku-headless.git'
+  gem 'heroku-headless', git: 'git://github.com/healthio/heroku-headless.git'
   gem 'spork-rails'
 end
 

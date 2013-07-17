@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:healthio/heroku-headless.git
-  revision: 7e3dcc7c6132c7868429d140ed633695cf18e2ce
+  remote: git://github.com/healthio/heroku-headless.git
+  revision: fe52bd844659feb633c83fb691558ded042b276f
   specs:
     heroku-headless (0.2.1)
       heroku-api
