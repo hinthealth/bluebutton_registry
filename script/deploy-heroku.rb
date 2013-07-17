@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 APP_NAME_BASE = 'blue-register'
+require 'rubygems'
+require 'bundler/setup'
+require 'active_support/all'
+
 require 'heroku-headless'
 require 'heroku-api'
 def pull_request_number
