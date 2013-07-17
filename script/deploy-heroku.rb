@@ -37,7 +37,7 @@ module ContinuousDelivery
         puts "Adding add-on #{addon}..."
         self.heroku.post_addon(self.server_name, addon)
       end
-      # $heroku.put_config_vars(server_name, KEY => 'value')
+      @new_feature_server = true
       puts "Done!"
     end
 
@@ -48,6 +48,7 @@ module ContinuousDelivery
     def deploy_self
       HerokuHeadless.configure do | config |
         config.post_deploy_commands = ['rake db:migrate']
+        config.post_deploy_commands = ['rake db:seed'] if @new_feature_server
         config.force_push = true
       end
       puts "Deploying to... #{server_name}"
