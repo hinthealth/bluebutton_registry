@@ -91,12 +91,12 @@ def server_name(suffix)
   [base_name, suffix.to_s].compact.join('-')
 end
 
-if ENV['TRAVIS_BRANCH'] == 'master'
+if ENV['TRAVIS_PULL_REQUEST'] && ENV['TRAVIS_PULL_REQUEST'] != 'false'
+  deployer = ContinuousDelivery::HerokuServers.new(server_name(ENV['TRAVIS_PULL_REQUEST']), feature: true)
+elsif ENV['TRAVIS_BRANCH'] == 'master'
   # The most recent 30 closed pull requests (30 is the default api limit)
   inactive_servers = Github::PullRequests.new.all(*ENV['TRAVIS_REPO_SLUG'].split('/') << {state: 'closed'}).collect{|p| server_name(p.number) }
   deployer = ContinuousDelivery::HerokuServers.new(server_name('production'), clean: inactive_servers)
-elsif ENV['TRAVIS_PULL_REQUEST'] && ENV['TRAVIS_PULL_REQUEST'] != 'false'
-  deployer = ContinuousDelivery::HerokuServers.new(server_name(ENV['TRAVIS_PULL_REQUEST']), feature: true)
 end
 if deployer
   deployer.deploy!
