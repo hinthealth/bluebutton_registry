@@ -1,5 +1,6 @@
 [![Build
-Status](https://travis-ci.org/hlth-labs/blue_register.png?branch=master)](https://travis-ci.org/hlth-labs/blue_register)
+Status](https://travis-ci.org/healthio/bluebutton_registry.png?branch=master)](https://travis-ci.org/healthio/bluebutton_registry)
+[![Build
 
 
 # Blue Register
