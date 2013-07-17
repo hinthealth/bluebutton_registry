@@ -8,7 +8,7 @@ require 'heroku-api'
 require 'github_api'
 
 module ContinuousDelivery
-  class Heroku
+  class HerokuServers
     FEATURE_ADDONS = %w/mongohq:sandbox loggly:mole/
     attr_accessor :server_name, :options
     def initialize(server_name, options = {})
@@ -93,8 +93,12 @@ end
 if ENV['TRAVIS_BRANCH'] == 'master'
   # The most recent 30 closed pull requests (30 is the default api limit)
   inactive_servers = Github::PullRequests.new.all(*ENV['TRAVIS_REPO_SLUG'].split('/') << {state: 'closed'}).collect{|p| server_name(p.number) }
-  deployer = ContinuousDelivery::Heroku.new(server_name('production'), clean: inactive_servers)
+  deployer = ContinuousDelivery::HerokuServers.new(server_name('production'), clean: inactive_servers)
 elsif ENV['TRAVIS_PULL_REQUEST'] && ENV['TRAVIS_PULL_REQUEST'] != 'false'
-  deployer = ContinuousDelivery::Heroku.new(server_name(ENV['TRAVIS_PULL_REQUEST']), feature: true)
+  deployer = ContinuousDelivery::HerokuServers.new(server_name(ENV['TRAVIS_PULL_REQUEST']), feature: true)
 end
-deployer.deploy! if deployer
+if deployer
+  deployer.deploy!
+else
+  puts "Nothing to deploy."
+end
