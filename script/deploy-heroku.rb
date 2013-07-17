@@ -1,68 +1,100 @@
 #!/usr/bin/env ruby
-APP_NAME_BASE = 'blue-register'
 require 'rubygems'
 require 'bundler/setup'
 require 'active_support/all'
 
 require 'heroku-headless'
 require 'heroku-api'
-def pull_request_number
-  ENV['TRAVIS_PULL_REQUEST']
-end
+require 'github_api'
 
-def pull_request?
-  (pull_request_number && pull_request_number != 'false').tap{|result| puts result ? "Yes, pull request!" : "No pull request here..." }
-end
+module ContinuousDelivery
+  class Heroku
+    FEATURE_ADDONS = %w/mongohq:sandbox loggly:mole/
+    attr_accessor :server_name, :options
+    def initialize(server_name, options = {})
+      @server_name = server_name
+      @options = options
+    end
 
-def deployable_branch?
-  server_for_branch.tap{|result| puts result ? "Yes! Deployable branch!" : "Nope, not a branch we know about" }
-end
+    def heroku
+      @heroku ||= Heroku::API.new
+    end
 
-def deployable?
-  pull_request? || deployable_branch?
-end
+    # Implementation/Heroku specific
+    def find_server
+      begin
+        self.heroku.get_app(self.server_name)
+      rescue Heroku::API::Errors::NotFound
+        puts "No app found with name #{self.server_name}."
+        return false
+      end
+    end
 
-def server_for_branch
-  branch = ENV['TRAVIS_BRANCH']
-  case branch
-  when 'master'
-    'production'
-  else
-    puts "No server configured for #{branch}..."
+    def create_feature_server
+      puts "Creating new server #{self.server_name}"
+      self.heroku.post_app('name' => self.server_name)
+      FEATURE_ADDONS.each do |addon|
+        puts "Adding add-on #{addon}..."
+        self.heroku.post_addon(self.server_name, addon)
+      end
+      # $heroku.put_config_vars(server_name, KEY => 'value')
+      puts "Done!"
+    end
+
+    def destroy_server(server_name)
+      self.heroku.delete_app(server_name)
+    end
+
+    def deploy_self
+      HerokuHeadless.configure do | config |
+        config.post_deploy_commands = ['rake db:migrate']
+        config.force_push = true
+      end
+      puts "Deploying to... #{server_name}"
+      HerokuHeadless::Deployer.deploy(server_name)
+    end
+
+    def all_servers
+      self.heroku.get_apps.body
+    end
+
+
+    # Generic methods
+
+    def find_or_create_feature_server
+      find_server || create_feature_server
+    end
+
+    def servers_to_clean
+      all_servers.select do |server|
+        options[:clean].include?(server[:name])
+      end
+    end
+
+    def clean_up
+      servers_to_clean.each do |server_name|
+        destroy_server(server_name)
+      end
+    end
+
+    def deploy!
+      find_or_create_feature_server if options[:feature]
+      clean_up if options[:clean]
+      deploy_self
+    end
   end
 end
 
-def derive_server_name(base_name)
-  if pull_request?
-    "#{base_name}-#{pull_request_number}"
-  else
-    "#{base_name}-#{server_for_branch}"
-  end
+def server_name(suffix)
+  base_name = 'blue-register'
+  [base_name, suffix.to_s].compact.join('-')
 end
 
-def list_apps(heroku)
-  @apps = heroku.get_apps
-  @apps.body.select{|a| a['name'].starts_with?(APP_NAME_BASE) }
+if ENV['TRAVIS_BRANCH'] == 'master'
+  # The most recent 30 closed pull requests (30 is the default api limit)
+  inactive_servers = Github::PullRequests.new.all(*ENV['TRAVIS_REPO_SLUG'].split('/') << {state: 'closed'}).collect{|p| server_name(p.number) }
+  deployer = ContinuousDelivery::Heroku.new(server_name('production'), clean: inactive_servers)
+elsif ENV['TRAVIS_PULL_REQUEST'] && ENV['TRAVIS_PULL_REQUEST'] != 'false'
+  deployer = ContinuousDelivery::Heroku.new(server_name(ENV['TRAVIS_PULL_REQUEST']), feature: true)
 end
-
-puts "Determining deployability..."
-if deployable?
-  server_name = derive_server_name(APP_NAME_BASE)
-  puts "Deployable!"
-  heroku = Heroku::API.new
-  begin
-    heroku.get_app(server_name)
-  rescue Heroku::API::Errors::NotFound
-    puts "No app found with name #{server_name}, creating..."
-    heroku.post_app('name' => server_name)
-  end
-  HerokuHeadless.configure do | config |
-    config.post_deploy_commands = ['rake db:migrate']
-    config.force_push = true
-  end
-  puts "Deploying to... #{server_name}"
-  HerokuHeadless::Deployer.deploy(server_name)
-else
-  puts "Not deployable for ##{ENV['TRAVIS_PULL_REQUEST']}, branch=#{ENV['TRAVIS_BRANCH']}..."
-end
-
+deployer.deploy! if deployer

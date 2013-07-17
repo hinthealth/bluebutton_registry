@@ -45,6 +45,8 @@ group :development, :test do
   gem 'travis' # For CI/CD
   gem 'heroku-headless', git: 'git://github.com/healthio/heroku-headless.git'
   gem 'spork-rails'
+
+  gem 'github_api'
 end
 
 # Capture emails sent in development mode
